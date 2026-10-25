@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sistema de Login | Meu Portfólio</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --background: #f7f9f6;
+            --surface: #ffffff;
+            --text: #252c27;
+            --text-muted: #737c74;
+            --green: #729779;
+            --green-dark: #486b4e;
+            --green-soft: #eaf1e8;
+            --border: #e6eae5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            padding: 32px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--background);
+            color: var(--text);
+            font-family: "DM Sans", sans-serif;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 24px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--green-dark);
+        }
+
+        .login-card {
+            padding: 32px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 12px 40px rgba(37, 44, 39, 0.04);
+        }
+
+        .brand {
+            width: 44px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 24px;
+            border-radius: 12px;
+            background: var(--green-soft);
+            color: var(--green-dark);
+            font-family: "Manrope", sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        h1 {
+            margin-bottom: 8px;
+            font-family: "Manrope", sans-serif;
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.8px;
+        }
+
+        .subtitle {
+            margin-bottom: 28px;
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            padding: 5px;
+            margin-bottom: 24px;
+            border-radius: 9px;
+            background: var(--background);
+        }
+
+        .tab {
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .tab.active {
+            background: white;
+            color: var(--green-dark);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+        }
+
+        .field {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 13px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            outline: none;
+            background: white;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 14px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus {
+            border-color: var(--green);
+            box-shadow: 0 0 0 3px rgba(114, 151, 121, 0.12);
+        }
+
+        .submit-button {
+            width: 100%;
+            margin-top: 4px;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: var(--green);
+            color: white;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .submit-button:hover {
+            background: var(--green-dark);
+        }
+
+        .submit-button:active {
+            transform: scale(0.99);
+        }
+
+        .message {
+            display: none;
+            margin-top: 18px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        .message.success {
+            display: block;
+            background: var(--green-soft);
+            color: var(--green-dark);
+        }
+
+        .message.error {
+            display: block;
+            background: #fff0ee;
+            color: #a33f35;
+        }
+
+        .demo-note {
+            margin-top: 20px;
+            color: var(--text-muted);
+            font-size: 12px;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .footer {
+            margin-top: 24px;
+            color: var(--text-muted);
+            font-size: 12px;
+            text-align: center;
+        }
+
+        @media (max-width: 420px) {
+            .login-card {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <a href="index.html#projetos" class="back-link">
+            ← Voltar ao portfólio
+        </a>
+
+        <section class="login-card">
+            <div class="brand">L</div>
+
+            <h1 id="title">Bem-vindo de volta</h1>
+
+            <p class="subtitle" id="subtitle">
+                Entre com seus dados para acessar a demonstração.
+            </p>
+
+            <div class="tabs">
+                <button class="tab active" id="loginTab" type="button">
+                    Entrar
+                </button>
+
+                <button class="tab" id="registerTab" type="button">
+                    Cadastrar
+                </button>
+            </div>
+
+            <form id="authForm">
+                <div class="field">
+                    <label for="email">E-mail</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="voce@exemplo.com"
+                        autocomplete="email"
+                        required
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="password">Senha</label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Digite sua senha"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <button class="submit-button" id="submitButton" type="submit">
+                    Entrar
+                </button>
+            </form>
+
+            <div class="message" id="message" role="status" aria-live="polite"></div>
+
+            <p class="demo-note">
+                Demonstração educacional. Os dados ficam apenas na memória
+                desta página e desaparecem ao recarregá-la.
+            </p>
+        </section>
+
+        <p class="footer">
+            Projeto desenvolvido em Python e adaptado para a web.
+        </p>
+    </main>
+
+    <script>
+        const usuarios = {};
+        const maxTentativas = 3;
+
+        let modo = "login";
+        let tentativas = 0;
+
+        const form = document.getElementById("authForm");
+        const loginTab = document.getElementById("loginTab");
+        const registerTab = document.getElementById("registerTab");
+        const title = document.getElementById("title");
+        const subtitle = document.getElementById("subtitle");
+        const submitButton = document.getElementById("submitButton");
+        const message = document.getElementById("message");
+        const emailInput = document.getElementById("email");
+        const passwordInput = document.getElementById("password");
+
+        function mostrarMensagem(texto, tipo) {
+            message.textContent = texto;
+            message.className = "message " + tipo;
+        }
+
+        function limparMensagem() {
+            message.textContent = "";
+            message.className = "message";
+        }
+
+        function mudarModo(novoModo) {
+            modo = novoModo;
+            limparMensagem();
+
+            loginTab.classList.toggle("active", modo === "login");
+            registerTab.classList.toggle("active", modo === "cadastro");
+
+            if (modo === "login") {
+                title.textContent = "Bem-vindo de volta";
+                subtitle.textContent =
+                    "Entre com seus dados para acessar a demonstração.";
+                submitButton.textContent = "Entrar";
+                passwordInput.autocomplete = "current-password";
+            } else {
+                title.textContent = "Criar conta";
+                subtitle.textContent =
+                    "Preencha os campos para cadastrar um usuário de teste.";
+                submitButton.textContent = "Cadastrar";
+                passwordInput.autocomplete = "new-password";
+            }
+        }
+
+        loginTab.addEventListener("click", () => mudarModo("login"));
+        registerTab.addEventListener("click", () => mudarModo("cadastro"));
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const email = emailInput.value.trim().toLowerCase();
+            const senha = passwordInput.value;
+
+            if (!email || !senha.trim()) {
+                mostrarMensagem(
+                    "E-mail e senha são obrigatórios.",
+                    "error"
+                );
+                return;
+            }
+
+            if (modo === "cadastro") {
+                if (usuarios[email]) {
+                    mostrarMensagem(
+                        "Já existe um usuário cadastrado com esse e-mail.",
+                        "error"
+                    );
+                    return;
+                }
+
+                usuarios[email] = senha;
+
+                mostrarMensagem(
+                    "Usuário cadastrado com sucesso! Agora você pode entrar.",
+                    "success"
+                );
+
+                form.reset();
+                mudarModo("login");
+                return;
+            }
+
+            if (tentativas >= maxTentativas) {
+                mostrarMensagem(
+                    "Limite de tentativas demonstrativas atingido. Recarregue a página para reiniciar.",
+                    "error"
+                );
+                return;
+            }
+
+            if (!usuarios[email] || usuarios[email] !== senha) {
+                tentativas++;
+
+                const restantes = maxTentativas - tentativas;
+
+                if (restantes > 0) {
+                    mostrarMensagem(
+                        `E-mail ou senha incorretos. Tentativas restantes: ${restantes}.`,
+                        "error"
+                    );
+                } else {
+                    mostrarMensagem(
+                        "Limite de tentativas atingido. Recarregue a página para reiniciar.",
+                        "error"
+                    );
+                }
+
+                return;
+            }
+
+            mostrarMensagem(
+                `Login bem-sucedido! Você entrou como ${email}.`,
+                "success"
+            );
+
+            form.reset();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sistema de Perfil Pessoal</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <style>
+        :root {
+            --background: #f7f9f6;
+            --surface: #ffffff;
+            --text: #252c27;
+            --muted: #737c74;
+            --green: #729779;
+            --green-dark: #486b4e;
+            --green-soft: #eaf1e8;
+            --border: #e6eae5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            padding: 32px 20px;
+            background: var(--background);
+            color: var(--text);
+            font-family: "DM Sans", sans-serif;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--muted);
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .back:hover {
+            color: var(--green-dark);
+        }
+
+        header {
+            margin: 54px 0 32px;
+        }
+
+        .tag {
+            display: inline-block;
+            margin-bottom: 16px;
+            padding: 7px 12px;
+            border-radius: 100px;
+            background: var(--green-soft);
+            color: var(--green-dark);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        h1, h2 {
+            font-family: "Manrope", sans-serif;
+        }
+
+        h1 {
+            margin-bottom: 14px;
+            font-size: clamp(30px, 6vw, 44px);
+            line-height: 1.15;
+            letter-spacing: -1.5px;
+        }
+
+        header p {
+            max-width: 540px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .panel {
+            padding: 28px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: var(--surface);
+            box-shadow: 0 10px 35px #253c2910;
+        }
+
+        .panel h2 {
+            margin-bottom: 8px;
+            font-size: 21px;
+        }
+
+        .description {
+            margin-bottom: 24px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            outline: none;
+            background: #fff;
+            color: var(--text);
+            font: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus {
+            border-color: var(--green);
+            box-shadow: 0 0 0 3px #72977920;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: var(--green-dark);
+            color: white;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        button:hover {
+            background: var(--green);
+            transform: translateY(-2px);
+        }
+
+        .result {
+            display: none;
+            margin-top: 24px;
+            padding: 20px;
+            border: 1px solid #d9e7d7;
+            border-radius: 12px;
+            background: var(--green-soft);
+            line-height: 1.8;
+            overflow-wrap: anywhere;
+        }
+
+        .result.visible {
+            display: block;
+        }
+
+        .result strong {
+            color: var(--green-dark);
+        }
+
+        .result h3 {
+            margin-bottom: 8px;
+            font-family: "Manrope", sans-serif;
+        }
+
+        .result p + p {
+            margin-top: 5px;
+        }
+
+        footer {
+            margin-top: 28px;
+            color: var(--muted);
+            text-align: center;
+            font-size: 12px;
+        }
+
+        @media (max-width: 520px) {
+            body {
+                padding: 24px 16px;
+            }
+
+            header {
+                margin-top: 42px;
+            }
+
+            .panel {
+                padding: 21px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .field.full {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+
+        <a class="back" href="index.html#projetos">
+            ← Voltar ao portfólio
+        </a>
+
+        <header>
+            <span class="tag">PROJETO 01 · PYTHON</span>
+
+            <h1>Sistema de Perfil Pessoal</h1>
+
+            <p>
+                Um programa interativo que coleta informações,
+                identifica a região de origem com base no país
+                informado e personaliza o resultado conforme a idade.
+            </p>
+        </header>
+
+        <section class="panel">
+            <h2>Vamos começar?</h2>
+
+            <p class="description">
+                Preencha os campos abaixo para experimentar
+                uma versão do projeto diretamente no navegador.
+            </p>
+
+            <form id="profile-form">
+                <div class="form-grid">
+
+                    <div class="field">
+                        <label for="nome">Seu nome</label>
+                        <input
+                            id="nome"
+                            type="text"
+                            placeholder="Ex.: Alex"
+                            required
+                        >
+                    </div>
+
+                    <div class="field">
+                        <label for="idade">Sua idade</label>
+                        <input
+                            id="idade"
+                            type="number"
+                            min="0"
+                            max="120"
+                            placeholder="Ex.: 18"
+                            required
+                        >
+                    </div>
+
+                    <div class="field">
+                        <label for="cidade">Sua cidade</label>
+                        <input
+                            id="cidade"
+                            type="text"
+                            placeholder="Ex.: Rio De Janeiro"
+                            required
+                        >
+                    </div>
+
+                    <div class="field">
+                        <label for="pais">Seu país</label>
+                        <input
+                            id="pais"
+                            type="text"
+                            placeholder="Ex.: Brasil"
+                            required
+                        >
+                    </div>
+
+                    <div class="field full" id="trabalho-field" hidden>
+                        <label for="trabalho">Sua profissão</label>
+                        <input
+                            id="trabalho"
+                            type="text"
+                            placeholder="Ex.: Designer"
+                        >
+                    </div>
+
+                </div>
+
+                <button type="submit">Gerar meu perfil →</button>
+            </form>
+
+            <div class="result" id="resultado" aria-live="polite"></div>
+        </section>
+
+        <footer>
+            Projeto pessoal desenvolvido originalmente em Python.
+        </footer>
+
+    </main>
+
+    <script>
+        const form = document.getElementById("profile-form");
+        const idadeInput = document.getElementById("idade");
+        const trabalhoField = document.getElementById("trabalho-field");
+        const trabalhoInput = document.getElementById("trabalho");
+        const resultado = document.getElementById("resultado");
+
+        const grupos = {
+            latino: [
+                "brasil", "argentina", "chile", "peru"
+            ],
+
+            "norte-americano": [
+                "estados unidos", "canadá", "canada", "alaska"
+            ],
+
+            europeu: [
+                "frança", "franca", "alemanha",
+                "itália", "italia", "espanha", "portugal"
+            ],
+
+            asiático: [
+                "japão", "japao", "china", "coreia",
+                "rússia", "russia", "índia", "india"
+            ]
+        };
+
+        function normalizar(texto) {
+            return texto
+                .trim()
+                .toLocaleLowerCase("pt-BR")
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "");
+        }
+
+        function identificarOrigem(pais) {
+            const paisNormalizado = normalizar(pais);
+
+            for (const [origem, paises] of Object.entries(grupos)) {
+                if (paises.some(p => normalizar(p) === paisNormalizado)) {
+                    return origem;
+                }
+            }
+
+            return "origem desconhecida";
+        }
+
+        function atualizarCampoTrabalho() {
+            const idade = Number(idadeInput.value);
+            const maiorDeIdade =
+                idadeInput.value !== "" && idade >= 18;
+
+            trabalhoField.hidden = !maiorDeIdade;
+            trabalhoInput.required = maiorDeIdade;
+
+            if (!maiorDeIdade) {
+                trabalhoInput.value = "";
+            }
+        }
+
+        idadeInput.addEventListener("input", atualizarCampoTrabalho);
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const nome = document.getElementById("nome").value.trim();
+            const idade = Number(idadeInput.value);
+            const cidade = document.getElementById("cidade").value.trim();
+            const pais = document.getElementById("pais").value.trim();
+
+            if (
+                !nome || !cidade || !pais ||
+                idadeInput.value === "" ||
+                !Number.isInteger(idade) ||
+                idade < 0 || idade > 120
+            ) {
+                return;
+            }
+
+            const origem = identificarOrigem(pais);
+
+            let mensagem;
+
+            if (idade >= 18) {
+                const trabalho = trabalhoInput.value.trim();
+
+                if (!trabalho) {
+                    trabalhoInput.focus();
+                    return;
+                }
+
+                mensagem = `${nome}, você é maior de idade, ` +
+                    `seu trabalho é ${trabalho}, você é ${origem} ` +
+                    `e mora em ${cidade}!`;
+            } else {
+                mensagem = `${nome}, você ainda é menor de idade, ` +
+                    `você é ${origem} e mora em ${cidade}!`;
+            }
+
+            const titulo = document.createElement("h3");
+            titulo.textContent = "Seu perfil";
+
+            const texto = document.createElement("p");
+            texto.textContent = mensagem;
+
+            resultado.replaceChildren(titulo, texto);
+            resultado.classList.add("visible");
+        });
+
+        atualizarCampoTrabalho();
+    </script>
+</body>
+</html>
